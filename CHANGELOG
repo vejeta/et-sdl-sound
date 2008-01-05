@@ -1,3 +1,7 @@
+r26:
+Fail gracefully when SDL_AudioDriverName() gives NULL and introduce
+sdlsamplesmult cvar.
+
 r25:
 Fixed possible readlink() problem.
 
