@@ -60,6 +60,7 @@ protected:
 	cvar_t *sndbits;
 	cvar_t *sndspeed;
 	cvar_t *sndchannels;
+	cvar_t *sdlsamplesmult;
 	
 	dma_t *dma;
 	byte *buffer;

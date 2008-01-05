@@ -60,6 +60,7 @@ qboolean EtSDL::init()
 	sndbits = getCvar("sndbits", "16", CVAR_ARCHIVE);
 	sndspeed = getCvar("sndspeed", "0", CVAR_ARCHIVE);
 	sndchannels = getCvar("sndchannels", "2", CVAR_ARCHIVE);
+	sdlsamplesmult = getCvar("sdlsamplesmult", "8", CVAR_ARCHIVE);
 	
 	if (!__SDL_WasInit(SDL_INIT_AUDIO)) {
 		if (__SDL_Init(SDL_INIT_AUDIO) == -1) {
@@ -68,8 +69,11 @@ qboolean EtSDL::init()
 		}
 	}
 	
-	if (__SDL_AudioDriverName(drivername, sizeof(drivername)) == NULL)
-		strcpy(drivername, "(UNKNOWN)");
+	if (__SDL_AudioDriverName(drivername, sizeof(drivername)) == NULL) {
+		/* SDL_Init() may pass, but it reports NULL here */
+		std::cout << "SDL_AudioDriverName() = NULL" << std::endl;
+		return qfalse;
+	}
 	
 	std::cout << "SDL audio driver is \"" << drivername << "\"" << std::endl;
 	
@@ -102,8 +106,11 @@ qboolean EtSDL::init()
 		std::cout << "SDL_OpenAudio() failed: " << SDL_GetError() << std::endl;
 		return qfalse;
 	}
-	
-	int samples = (obtained.samples * obtained.channels) * 10;
+
+	int samples = obtained.samples * obtained.channels;
+
+	if ((int) sdlsamplesmult->value >= 1)
+		samples *= (int) sdlsamplesmult->value;
 	
 	// make it power of two
 	if (samples & (samples - 1)) {
