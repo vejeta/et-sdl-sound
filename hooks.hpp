@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef HOOKS_H
 #define HOOKS_H
 
-#define __ETSDL_VERSION "r26"
+#define __ETSDL_VERSION "r27"
 
 // from Q3 sources
 typedef enum {qfalse, qtrue} qboolean;

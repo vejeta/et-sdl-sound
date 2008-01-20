@@ -1,3 +1,6 @@
+r27:
+Redirect locate stderr into /dev/null instead of using -q.
+
 r26:
 Fail gracefully when SDL_AudioDriverName() gives NULL and introduce
 sdlsamplesmult cvar.
