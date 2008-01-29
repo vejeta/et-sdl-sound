@@ -67,8 +67,8 @@ eend () {
 	exit 1
 }
 
-# test-game-path "path"
-test-game-path () {
+# testgamepath "path"
+testgamepath () {
 	# TODO test some .pk3 files?
 	if [ -x "$1/$GAME_BIN" -a "$GAME_PATH" = "" ]; then
 		info "$GAME_BIN is installed to $1"
@@ -76,14 +76,14 @@ test-game-path () {
 	fi
 }
 
-# test-libsdl "path"
-test-libsdl () {
+# testlibsdl "path"
+testlibsdl () {
 	TRIED_LIBSDL="$TRIED_LIBSDL $1"
 	
 	READLINK=`readlink -f "$1"`
 	if [ "$LIBSDL" = "" -a "$READLINK" != "$1" ]; then
 		#info "$1 is a symbolic link to $READLINK"
-		test-libsdl "$READLINK"
+		testlibsdl "$READLINK"
 	fi
 	
 	if [ "$LIBSDL" = "" -a -f "$1" ]; then
@@ -100,15 +100,15 @@ if [ "$ONLY_EXTRACT" = "yes" ]; then
 	exit 0
 fi
 
-[ "$GAME_PATH" = "" ] && test-game-path "/usr/local/games/$GAME_DIR"
-[ "$GAME_PATH" = "" ] && test-game-path "/opt/$GAME_DIR"
-[ "$GAME_PATH" = "" ] && test-game-path "/usr/games/$GAME_DIR"
-[ "$GAME_PATH" = "" ] && test-game-path "~/$GAME_DIR"
+[ "$GAME_PATH" = "" ] && testgamepath "/usr/local/games/$GAME_DIR"
+[ "$GAME_PATH" = "" ] && testgamepath "/opt/$GAME_DIR"
+[ "$GAME_PATH" = "" ] && testgamepath "/usr/games/$GAME_DIR"
+[ "$GAME_PATH" = "" ] && testgamepath "~/$GAME_DIR"
 if [ "$GAME_PATH" = "" ]; then
 	LOCATE_GAME=`locate "$GAME_BIN" 2> /dev/null`
 	for i in $LOCATE_GAME; do
 		i=`dirname "$i"`
-		test-game-path $i
+		testgamepath $i
 		[ "$GAME_PATH" != "" ] && break
 	done
 fi
@@ -116,27 +116,27 @@ if [ "$GAME_PATH" = "" -a "$USE_FIND" = "yes" ]; then
 	FIND_GAME=`find /opt/ /usr/ -type f -name "$GAME_BIN"`
 	for i in $FIND_GAME; do
 		i=`dirname "$i"`
-		test-game-path $i
+		testgamepath $i
 		[ "$GAME_PATH" != "" ] && break
 	done
 fi
 [ "$GAME_PATH" = "" ] && eend "can't locate $GAME_BIN"
 
-[ "$LIBSDL" = "" ] && test-libsdl "/usr/lib/libSDL.so"
-[ "$LIBSDL" = "" ] && test-libsdl "/usr/lib/libSDL-1.2.so.0"
-[ "$LIBSDL" = "" ] && test-libsdl "/usr/lib32/libSDL.so"
-[ "$LIBSDL" = "" ] && test-libsdl "/usr/lib32/libSDL-1.2.so.0"
+[ "$LIBSDL" = "" ] && testlibsdl "/usr/lib/libSDL.so"
+[ "$LIBSDL" = "" ] && testlibsdl "/usr/lib/libSDL-1.2.so.0"
+[ "$LIBSDL" = "" ] && testlibsdl "/usr/lib32/libSDL.so"
+[ "$LIBSDL" = "" ] && testlibsdl "/usr/lib32/libSDL-1.2.so.0"
 if [ "$LIBSDL" = "" ]; then
 	LOCATE_LIBSDL=`locate -r libSDL[^_]*so[^_]* 2> /dev/null`
 	for i in $LOCATE_LIBSDL; do
-		test-libsdl $i
+		testlibsdl $i
 		[ "$LIBSDL" != "" ] && break
 	done
 fi
 if [ "$LIBSDL" = "" -a "$USE_FIND" = "yes" ]; then
 	FIND_LIBSDL=`find /usr/lib/ /usr/lib32/ -type f -name libSDL[^_]*so[^_]*`
 	for i in $FIND_LIBSDL; do
-		test-libsdl $i
+		testlibsdl $i
 		[ "$LIBSDL" != "" ] && break
 	done
 fi
