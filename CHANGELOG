@@ -1,3 +1,6 @@
+r28:
+Rename functions in launcher script for better compability.
+
 r27:
 Redirect locate stderr into /dev/null instead of using -q.
 
