@@ -159,7 +159,7 @@ cd "$GAME_PATH"
 
 export ETSDL_SDL_LIB="$LIBSDL"
 export SDL_AUDIODRIVER="$SDL_AUDIODRIVER"
-LD_PRELOAD="$TMP_DIR/et-sdl-sound.so" ./$GAME_BIN $*
+LD_PRELOAD="${LD_PRELOAD}:${TMP_DIR}/et-sdl-sound.so" ./$GAME_BIN $*
 
 rm "$TMP_DIR/et-sdl-sound.so" || error "can't remove $TMP_DIR/et-sdl-sound.so"
 
