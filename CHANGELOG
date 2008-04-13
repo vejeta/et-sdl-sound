@@ -1,3 +1,6 @@
+r29:
+Fix undefined PATH_MAX with GCC 4.3.
+
 r28:
 Rename functions in launcher script for better compability.
 

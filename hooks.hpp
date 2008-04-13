@@ -1,6 +1,6 @@
 /*
 et-sdl-sound - SDL sound system for Enemy Territory, RTCW and Q3
-Copyright (C) 2007  Pyry Haulos
+Copyright (C) 2007-2008  Pyry Haulos
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef HOOKS_H
 #define HOOKS_H
 
-#define __ETSDL_VERSION "r28"
+#define __ETSDL_VERSION "r29"
 
 // from Q3 sources
 typedef enum {qfalse, qtrue} qboolean;
