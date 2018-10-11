@@ -30,9 +30,15 @@ Support:
 Installation:
         et-sdl-sound script contains everything you need to launch Enemy Territory
         with SDL audio support. The fastest way to install the script is to
-        execute following command line:
+        execute one of the following command lines. Use either one or another.
 
         wget -q -O - http://nullkey.ath.cx/~stuff/et-sdl-sound/et-sdl-sound.gz | gzip -d > et-sdl-sound && chmod a+x et-sdl-sound
+        
+        wget https://github.com/nullkey/et-sdl-sound/files/1156002/et-sdl-sound.zip -O et-sdl-sound.zip; unzip et-sdl-sound.zip;chmod a+x et-sdl-sound
+
+        Note: The script expect to find the directory `enemy-territory` under one of those: /usr/local/games, /opt, /usr/games or ~
+              The executable it looks for must be named et.x86
+              Modify the script accordingly if you need it.
 
         Now you can start Enemy Territory with SDL sound support by running
         ./et-sdl-sound
